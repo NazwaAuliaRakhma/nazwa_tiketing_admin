@@ -4,7 +4,7 @@ import 'screens/movie_screen.dart';
 import 'screens/profile_screen.dart';
 
 final Map<String, WidgetBuilder> appRoutes = {
-  '/': (context) => LoginScreen(),
+  '/': (context) => LoginPage(),
   '/movies': (context) => MovieScreen(),
-  '/profile': (context) => const ProfileScreen(),
+  '/profile': (context) => UserDataScreen(),
 };

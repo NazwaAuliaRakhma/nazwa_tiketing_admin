@@ -1,219 +1,258 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'edit_movie_screen.dart';
 
 class MovieScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF1C1C1C),
       appBar: AppBar(
-        backgroundColor: Color(0xFF1C1C1C),
+        backgroundColor: Color(0xFF1A1A1A),
         elevation: 0,
         title: Text(
           'MOVIE',
-          style: GoogleFonts.poppins(
-            textStyle: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
           ),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add, color: Colors.white),
+            onPressed: () {
+              Navigator.pushNamed(context, '/add_movie');
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            MovieCard(
-              title: 'KKN Di Desa Penari',
-              description:
-                  'KKN Desa Penari merupakan sebuah film horor yang diangkat dari kisah nyata enam mahasiswa.',
-              studio: 'STUDIO 1',
-              showtimes: ['13:30', '15:00', '16:30', '18:00'],
-              genre: 'Horror',
-              duration: '1j 30m',
-              ticketCount: 44,
-              price: 40000,
-              imageUrl: 'assets/img_rectangle_67.png',
-              date: '28.06.2024',
+            movieCard(
+              context,
+              'KKN Di Desa Penari',
+              'STUDIO 1',
+              'Horror',
+              '1j 30m',
+              '44',
+              '40.000',
+              '13:30',
+              '15:00',
+              '16:30',
+              '18:00',
+              'KKN Desa Penari merupakan sebuah film horor yang diangkat dari kisah nyata enam mahasiswa.',
+              '28.06.2024',
+              'assets/images/img_rectangle_67.png',
+            ),
+            movieCard(
+              context,
+              'THE DOLL 3',
+              'STUDIO 2',
+              'Horror',
+              '1j 40m',
+              '50',
+              '45.000',
+              '15:30',
+              '18:00',
+              '19:30',
+              '21:00',
+              'The Doll 3 adalah film horor yang menceritakan kisah boneka berhantu.',
+              '29.06.2024',
+              'assets/images/img_rectangle_70.png',
+            ),
+            movieCard(
+              context,
+              'TELUH',
+              'STUDIO 3',
+              'Horror',
+              '1j 35m',
+              '48',
+              '42.000',
+              '14:00',
+              '15:30',
+              '17:00',
+              '18:30',
+              'Teluh adalah film yang mengisahkan tentang kutukan yang menyerang sebuah keluarga.',
+              '30.06.2024',
+              'assets/images/img_rectangle_73.png',
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Color(0xFF1A1A1A),
+        selectedItemColor: Colors.orange,
+        unselectedItemColor: Colors.grey,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.movie),
+            label: 'Movie',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: 'Profile',
+          ),
+        ],
+        onTap: (index) {
+          if (index == 1) {
+            Navigator.pushNamed(context, '/user_data');
+          }
+        },
+      ),
+    );
+  }
+
+  Widget movieCard(
+      BuildContext context,
+      String title,
+      String studio,
+      String genre,
+      String duration,
+      String tickets,
+      String price,
+      String time1,
+      String time2,
+      String time3,
+      String time4,
+      String description,
+      String date,
+      String imagePath) {
+    return Card(
+      color: Color(0xFF2C2C2C),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset(
+                  imagePath,
+                  width: 100,
+                  height: 150,
+                  fit: BoxFit.cover,
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        description,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      SizedBox(height: 16),
+                      Text(
+                        studio,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        date,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.edit, color: Colors.white),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditMovieScreen(
+                          title: title,
+                          studio: studio,
+                          genre: genre,
+                          duration: duration,
+                          tickets: tickets,
+                          price: price,
+                          time1: time1,
+                          time2: time2,
+                          time3: time3,
+                          time4: time4,
+                          description: description,
+                          date: date,
+                          imagePath: imagePath,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
             SizedBox(height: 16),
-            MovieCard(
-              title: 'My Sassy Girl',
-              description:
-                  'Gian seharusnya pergi ke rumah tantenya karena sang tante ingin menjodohkan Gian dengan mantan kekasih almarhum anaknya.',
-              studio: 'STUDIO 2',
-              showtimes: ['15:30', '18:00', '19:30', '21:00'],
-              genre: 'Romance',
-              duration: '1j 30m',
-              ticketCount: 44,
-              price: 40000,
-              imageUrl: 'assets/img_rectangle_86.png',
-              date: '28.06.2024',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                movieInfo('Genre', genre, Icons.movie),
+                movieInfo('Duration', duration, Icons.timer),
+                movieInfo('Ticket', tickets, Icons.event_seat),
+                movieInfo('Price', price, Icons.attach_money),
+              ],
             ),
             SizedBox(height: 16),
-            MovieCard(
-              title: 'Keluarga Cemara 2',
-              description:
-                  'Setelah jatuh miskin, Emak dan Abah bertahan hidup di desa. Ingin sejahtera, tapi lupa dengan kebahagiaan anak-anaknya.',
-              studio: 'STUDIO 3',
-              showtimes: ['14:00', '15:30', '17:00', '18:30'],
-              genre: 'Family',
-              duration: '1j 30m',
-              ticketCount: 44,
-              price: 40000,
-              imageUrl: 'assets/img_rectangle_90.png',
-              date: '28.06.2024',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                showtimeButton(time1),
+                showtimeButton(time2),
+                showtimeButton(time3),
+                showtimeButton(time4),
+              ],
             ),
           ],
         ),
       ),
     );
   }
-}
 
-class MovieCard extends StatelessWidget {
-  final String title;
-  final String description;
-  final String studio;
-  final List<String> showtimes;
-  final String genre;
-  final String duration;
-  final int ticketCount;
-  final int price;
-  final String imageUrl;
-  final String date;
-
-  MovieCard({
-    required this.title,
-    required this.description,
-    required this.studio,
-    required this.showtimes,
-    required this.genre,
-    required this.duration,
-    required this.ticketCount,
-    required this.price,
-    required this.imageUrl,
-    required this.date,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Color(0xFF2C2C2C),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 80,
-                height: 120,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  image: DecorationImage(
-                    image: AssetImage(imageUrl),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      description,
-                      style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white70,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      studio,
-                      style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white70,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Showtimes: ${showtimes.join(', ')}',
-                      style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white70,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              InfoTag(icon: Icons.category, label: genre),
-              InfoTag(icon: Icons.access_time, label: duration),
-              InfoTag(icon: Icons.event_seat, label: '$ticketCount'),
-              InfoTag(icon: Icons.attach_money, label: '$price'),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class InfoTag extends StatelessWidget {
-  final IconData icon;
-  final String label;
-
-  InfoTag({required this.icon, required this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
+  Widget movieInfo(String title, String value, IconData icon) {
+    return Column(
       children: [
-        Icon(icon, color: Colors.white70, size: 16),
-        SizedBox(width: 4),
+        Icon(icon, color: Colors.white),
+        SizedBox(height: 4),
         Text(
-          label,
-          style: GoogleFonts.poppins(
-            textStyle: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: Colors.white70,
-            ),
-          ),
+          title,
+          style: TextStyle(color: Colors.white, fontSize: 12),
+        ),
+        SizedBox(height: 4),
+        Text(
+          value,
+          style: TextStyle(color: Colors.white, fontSize: 12),
         ),
       ],
     );
   }
+
+  Widget showtimeButton(String time) {
+    return ElevatedButton(
+      onPressed: () {
+        // Action saat tombol showtime ditekan
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.black,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      ),
+      child: Text(time),
+    );
+  }
 }
+
+                       
